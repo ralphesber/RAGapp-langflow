@@ -1,4 +1,4 @@
-#!/Users/ralphesber/Documents/RAGwithLangflow/.venv/bin/python3
+#!/Users/ralphesber/Documents/RAGwithLangflow/.venv/bin/python3.10
 # -*- coding: utf-8 -*-
 import re
 import sys

@@ -16,6 +16,7 @@ import ast
 # Load environment variables from .env file if it exists
 load_dotenv()
 
+
 openai_api_key = os.getenv('openai_api_key')
 token = os.getenv('token')
 api_endpoint = os.getenv('api_endpoint')
