@@ -21,7 +21,7 @@ except ImportError as e:
 load_dotenv()
 
 
-openai_api_key = os.getenv('openai_api_key')
+openai_api_key = st.secrets["openai_api_key"]
 token = os.getenv('token')
 api_endpoint = os.getenv('api_endpoint')
 
