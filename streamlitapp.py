@@ -11,8 +11,12 @@ from typing import Optional
 import requests
 import os
 from dotenv import load_dotenv
-from langflow.load import run_flow_from_json
-import ast
+# from langflow import run_flow_from_json
+try:
+    from langflow.load import run_flow_from_json
+except ImportError as e:
+    st.error(f"ImportError: {e}")
+    st.stop()
 # Load environment variables from .env file if it exists
 load_dotenv()
 
@@ -34,8 +38,8 @@ flow_config['api_endpoint'] = api_endpoint
 log_format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 logging.basicConfig(format=log_format, stream=sys.stdout, level=logging.INFO)
 
-BASE_API_URL = "http://localhost:7860/api/v1/run"
-FLOW_ID = "ef627a27-5332-45ee-b56e-4b83e07ccf52"
+BASE_API_URL = "https://ralphkognity-langflow-preview.hf.space/api/v1/run"
+FLOW_ID = "7e840d19-3197-49e9-846c-b553943e02ab"
 # You can tweak the flow by adding a tweaks dictionary
 # e.g {"OpenAI-XXXXX": {"model_name": "gpt-4"}}
 TWEAKS = {
@@ -129,13 +133,13 @@ def run_flow(message: str, flow_id: str, output_type: str = "chat", input_type: 
 def generate_response(prompt):
     logging.info(f"question: {prompt}")
     inputs = {"question": prompt}
-    # response = run_flow(prompt, flow_id=FLOW_ID, tweaks=TWEAKS)
+    #response = run_flow(prompt, flow_id=FLOW_ID, tweaks=TWEAKS)
     response = run_flow_from_json(flow="Langflow sample.json",
                                 input_value=prompt)
     try:
-        results = response[0]
-
-        return results
+        # logging.info(f"answer: {response['outputs'][0]['outputs'][0]['results']['result']}")
+        # return response['outputs'][0]['outputs'][0]['results']['result']
+        return response[0]
     except Exception as exc:
         logging.error(f"error: {response}")
         return "Sorry, there was a problem finding an answer for you."
