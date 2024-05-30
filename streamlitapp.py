@@ -23,7 +23,7 @@ load_dotenv()
 
 def load_secrets():
     
-    openai_api_key = st.secrets["openai_api_key"]
+    openai_api_key = st.secrets["OPENAI_API_KEY"]
     token = os.getenv('token')
     api_endpoint = os.getenv('api_endpoint')
 
