@@ -1,1 +1,3 @@
-dotenv
+streamlit
+python-dotenv
+langflow
