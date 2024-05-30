@@ -3,16 +3,37 @@ import sys
 import time
 from typing import Optional
 import requests
+import json
 import streamlit as st
 # from streamlit_chat import message
 import logging
 from typing import Optional
 import requests
+import os
+from dotenv import load_dotenv
+from langflow.load import run_flow_from_json
+import ast
+# Load environment variables from .env file if it exists
+load_dotenv()
+
+openai_api_key = os.getenv('openai_api_key')
+token = os.getenv('token')
+api_endpoint = os.getenv('api_endpoint')
+
+# Load and modify the flow.json file
+with open('Langflow sample.json', 'r') as file:
+    flow_config = json.load(file)
+
+flow_config['openai_api_key'] = openai_api_key
+flow_config['token'] = token
+flow_config['api_endpoint'] = api_endpoint
+
+
 
 log_format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 logging.basicConfig(format=log_format, stream=sys.stdout, level=logging.INFO)
 
-BASE_API_URL = "http://localhost:7861/api/v1/run"
+BASE_API_URL = "http://localhost:7860/api/v1/run"
 FLOW_ID = "ef627a27-5332-45ee-b56e-4b83e07ccf52"
 # You can tweak the flow by adding a tweaks dictionary
 # e.g {"OpenAI-XXXXX": {"model_name": "gpt-4"}}
@@ -32,9 +53,9 @@ BASE_AVATAR_URL = (
 
 
 def main():
-    st.set_page_config(page_title="Virtual Bartender")
+    st.set_page_config(page_title="Teacher Assistant")
 
-    st.markdown("##### Welcome to the Virtual Bartender")
+    st.markdown("##### Welcome to the teacher assistant")
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
@@ -43,7 +64,7 @@ def main():
         with st.chat_message(message["role"], avatar=message["avatar"]):
             st.write(message["content"])
 
-    if prompt := st.chat_input("I'm your virtual bartender, how may I help you?"):
+    if prompt := st.chat_input("I'm your virtual teacher assistant, how may I help you?"):
         # Add user message to chat history
         st.session_state.messages.append(
             {
@@ -107,10 +128,13 @@ def run_flow(message: str, flow_id: str, output_type: str = "chat", input_type: 
 def generate_response(prompt):
     logging.info(f"question: {prompt}")
     inputs = {"question": prompt}
-    response = run_flow(prompt, flow_id=FLOW_ID, tweaks=TWEAKS)
+    # response = run_flow(prompt, flow_id=FLOW_ID, tweaks=TWEAKS)
+    response = run_flow_from_json(flow="Langflow sample.json",
+                                input_value=prompt)
     try:
-        logging.info(f"answer: {response['outputs'][0]['outputs'][0]['results']['result']}")
-        return response['outputs'][0]['outputs'][0]['results']['result']
+        results = response[0]
+
+        return results
     except Exception as exc:
         logging.error(f"error: {response}")
         return "Sorry, there was a problem finding an answer for you."
