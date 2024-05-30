@@ -20,7 +20,11 @@ except ImportError as e:
 # Load environment variables from .env file if it exists
 load_dotenv()
 
-
+if "OPENAI_API_KEY" in st.secrets:
+    st.write("OpenAI API Key loaded successfully!")
+else:
+    st.error("OpenAI API Key not found!")
+    
 openai_api_key = st.secrets["openai_api_key"]
 token = os.getenv('token')
 api_endpoint = os.getenv('api_endpoint')
