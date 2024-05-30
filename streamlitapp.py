@@ -13,7 +13,7 @@ import os
 from dotenv import load_dotenv
 # from langflow import run_flow_from_json
 try:
-    from langflow.load import run_flow_from_json
+    from langflow import run_flow_from_json
 except ImportError as e:
     st.error(f"ImportError: {e}")
     st.stop()
