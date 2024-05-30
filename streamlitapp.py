@@ -20,22 +20,25 @@ except ImportError as e:
 # Load environment variables from .env file if it exists
 load_dotenv()
 
-if "OPENAI_API_KEY" in st.secrets:
-    st.write("OpenAI API Key loaded successfully!")
-else:
-    st.error("OpenAI API Key not found!")
+
+def load_secrets():
     
-openai_api_key = st.secrets["openai_api_key"]
-token = os.getenv('token')
-api_endpoint = os.getenv('api_endpoint')
+    openai_api_key = st.secrets["openai_api_key"]
+    token = os.getenv('token')
+    api_endpoint = os.getenv('api_endpoint')
 
-# Load and modify the flow.json file
-with open('Langflow sample.json', 'r') as file:
-    flow_config = json.load(file)
+    # Load and modify the flow.json file
+    with open('Langflow sample.json', 'r') as file:
+        flow_config = json.load(file)
 
-flow_config['openai_api_key'] = openai_api_key
-flow_config['token'] = token
-flow_config['api_endpoint'] = api_endpoint
+    flow_config['openai_api_key'] = openai_api_key
+    flow_config['token'] = token
+    flow_config['api_endpoint'] = api_endpoint
+
+    if "OPENAI_API_KEY" in st.secrets:
+        st.write("OpenAI API Key loaded successfully!")
+    else:
+        st.error("OpenAI API Key not found!")
 
 
 
@@ -63,7 +66,7 @@ BASE_AVATAR_URL = (
 
 def main():
     st.set_page_config(page_title="Teacher Assistant")
-
+    load_secrets()
     st.markdown("##### Welcome to the teacher assistant")
 
     if "messages" not in st.session_state:
