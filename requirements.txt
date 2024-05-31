@@ -1,3 +1,2 @@
 python-dotenv
 langflow==1.0.0a27
-sqlite==3.35.5
