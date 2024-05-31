@@ -473,7 +473,7 @@
                     },
                     "id": "ChatOutput-jsKKh"
                 },
-                "selected": true,
+                "selected": false,
                 "width": 384,
                 "height": 383,
                 "dragging": false,
@@ -523,13 +523,13 @@
                                 "password": false,
                                 "name": "input_value",
                                 "display_name": "Message",
-                                "advanced": false,
+                                "advanced": true,
                                 "input_types": [],
                                 "dynamic": false,
                                 "info": "",
                                 "load_from_db": false,
                                 "title_case": false,
-                                "value": ""
+                                "value": "how many lessons in this module?"
                             },
                             "return_record": {
                                 "type": "bool",
@@ -649,7 +649,7 @@
                     },
                     "id": "ChatInput-FzQxA"
                 },
-                "selected": false,
+                "selected": true,
                 "width": 384,
                 "height": 375,
                 "positionAbsolute": {
@@ -1831,7 +1831,7 @@
                                 "list": false,
                                 "show": true,
                                 "multiline": false,
-                                "value": "The context {context} is the teacher guide with lesson support for a module in Biology subject for High School Science. \nYour job is to act as a teacher assistant. You will help the teacher by answering their queries {question}.\nIn this document you will find one module of a unit of a subject. This module is built up by lessons that contain content options. ",
+                                "value": "The context {context} is the teacher guide with lesson support for a module in Biology subject for High School Science. \nYour job is to act as a teacher assistant. You will help the teacher by answering their queries {question}.\nIn the context provided you will find one module of a unit of a subject. This module is built up by lessons that contain content options. ",
                                 "fileTypes": [],
                                 "file_path": "",
                                 "password": false,
@@ -2408,13 +2408,13 @@
             }
         ],
         "viewport": {
-            "x": -1006.1226309294323,
-            "y": 590.3147132114958,
-            "zoom": 0.8555701235717168
+            "x": 979.8365746668042,
+            "y": 319.5233052578252,
+            "zoom": 0.5566946060347505
         }
     },
-    "description": "Teacher guide.",
-    "name": "Langflow sample",
+    "description": "Where Language Meets Logic.",
+    "name": "Sample",
     "last_tested_version": "1.0.0a27",
     "is_component": false
 }
