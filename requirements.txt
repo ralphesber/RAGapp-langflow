@@ -1,2 +1,3 @@
 python-dotenv
 langflow==1.0.0a27
+pysqlite3-binary
