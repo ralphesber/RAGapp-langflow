@@ -148,7 +148,7 @@ def generate_response(prompt):
                                 input_value=prompt)
     try:
         
-        return response[0].outputs[0].results
+        return response[0].outputs[0].messages[0].message
     except json.JSONDecodeError as e:
         logging.error (f"JSON decode error: {e}")
         return "Sorry, there was a problem finding an answer for you."
