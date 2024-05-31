@@ -13,8 +13,8 @@ import logging
 from typing import Optional
 import requests
 import os
+import re
 from dotenv import load_dotenv
-# from langflow import run_flow_from_json
 try:
     from langflow.load import run_flow_from_json
 except ImportError as e:
@@ -147,11 +147,13 @@ def generate_response(prompt):
     response = run_flow_from_json(flow="Langflow sample.json",
                                 input_value=prompt)
     try:
-        # logging.info(f"answer: {response['outputs'][0]['outputs'][0]['results']['result']}")
-        # return response['outputs'][0]['outputs'][0]['results']['result']
-        return response[0]
-    except Exception as exc:
-        logging.error(f"error: {response}")
+        
+        return response[0].outputs[0].results
+    except json.JSONDecodeError as e:
+        logging.error (f"JSON decode error: {e}")
+        return "Sorry, there was a problem finding an answer for you."
+    except Exception as e:
+        logging.error (f"An unexpected error occurred: {e}")
         return "Sorry, there was a problem finding an answer for you."
 
 
