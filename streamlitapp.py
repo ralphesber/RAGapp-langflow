@@ -35,23 +35,8 @@ def load_secrets():
         flow_config = json.load(file)
 
     flow_config['openai_api_key'] = openai_api_key
-    flow_config['token'] = token
-    flow_config['api_endpoint'] = api_endpoint
-
-    if "OPENAI_API_KEY" in st.secrets:
-        st.write("OpenAI API Key loaded successfully!")
-    else:
-        st.error("OpenAI API Key not found!")
 
 
-
-log_format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-logging.basicConfig(format=log_format, stream=sys.stdout, level=logging.INFO)
-
-BASE_API_URL = "https://ralphkognity-langflow-preview.hf.space/api/v1/run"
-FLOW_ID = "7e840d19-3197-49e9-846c-b553943e02ab"
-# You can tweak the flow by adding a tweaks dictionary
-# e.g {"OpenAI-XXXXX": {"model_name": "gpt-4"}}
 TWEAKS = {
   "OpenAIModel-e49CE": {},
   "ChatOutput-jsKKh": {},
@@ -62,6 +47,11 @@ TWEAKS = {
   "Prompt-poPXn": {},
   "OpenAIModel-oIQER": {}
 }
+
+log_format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+logging.basicConfig(format=log_format, stream=sys.stdout, level=logging.INFO)
+
+
 BASE_AVATAR_URL = (
     "https://raw.githubusercontent.com/garystafford-aws/static-assets/main/static"
 )
@@ -113,39 +103,11 @@ def main():
             }
         )
 
-
-def run_flow(message: str, flow_id: str, output_type: str = "chat", input_type: str = "chat", tweaks: Optional[dict] = None, api_key: Optional[str] = None) -> dict:
-    
-    """
-    Run a flow with a given message and optional tweaks.
-
-    :param message: The message to send to the flow
-    :param flow_id: The ID of the flow to run
-    :param tweaks: Optional tweaks to customize the flow
-    :return: The JSON response from the flow
-    """
-    api_url = f"{BASE_API_URL}/{flow_id}"
-
-    payload = {
-        "input_value": message,
-        "output_type": output_type,
-        "input_type": input_type,
-    }
-    headers = None
-    if tweaks:
-        payload["tweaks"] = tweaks
-    if api_key:
-        headers = {"x-api-key": api_key}
-    response = requests.post(api_url, json=payload, headers=headers)
-    return response.json()
-
-
 def generate_response(prompt):
     logging.info(f"question: {prompt}")
     inputs = {"question": prompt}
-    #response = run_flow(prompt, flow_id=FLOW_ID, tweaks=TWEAKS)
     response = run_flow_from_json(flow="Langflow sample.json",
-                                input_value=prompt)
+                                input_value=prompt, tweaks=TWEAKS)
     try:
         
         return response[0].outputs[0].messages[0].message

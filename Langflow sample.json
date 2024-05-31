@@ -529,7 +529,7 @@
                                 "info": "",
                                 "load_from_db": false,
                                 "title_case": false,
-                                "value": "how many lessons in this module?"
+                                "value": ""
                             },
                             "return_record": {
                                 "type": "bool",
