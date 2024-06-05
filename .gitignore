@@ -1,3 +1,5 @@
 .venv
 __pycache__/
 secrets.toml
+Astra prompts results.zip
+Prompts Results Token.json

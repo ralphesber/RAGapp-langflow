@@ -15,6 +15,8 @@ import requests
 import os
 import re
 from dotenv import load_dotenv
+from connect_database import insert_prompt, read_history
+
 try:
     from langflow.load import run_flow_from_json
 except ImportError as e:
@@ -109,7 +111,7 @@ def generate_response(prompt):
     response = run_flow_from_json(flow="Langflow sample.json",
                                 input_value=prompt, tweaks=TWEAKS)
     try:
-        
+        insert_prompt(prompt, response[0].outputs[0].messages[0].message)
         return response[0].outputs[0].messages[0].message
     except json.JSONDecodeError as e:
         logging.error (f"JSON decode error: {e}")
