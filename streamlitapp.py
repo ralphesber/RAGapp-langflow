@@ -15,7 +15,6 @@ import requests
 import os
 import re
 from dotenv import load_dotenv
-from connect_database import insert_prompt, read_history, connect_database
 
 try:
     from langflow.load import run_flow_from_json
