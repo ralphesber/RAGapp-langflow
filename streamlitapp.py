@@ -28,7 +28,7 @@ load_dotenv()
 def load_secrets():
     if "OPENAI_API_KEY" in st.secrets:
         openai_api_key = st.secrets["OPENAI_API_KEY"]
-        st.write("OpenAI API Key loaded successfully!")
+        # st.write("OpenAI API Key loaded successfully!")
     else:
         st.error("OpenAI API Key not found!")
     token = os.getenv('token')
